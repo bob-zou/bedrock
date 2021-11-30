@@ -1,0 +1,11 @@
+{
+	"network":"tcp",
+	"addr": "127.0.0.1:6379",
+	"username": "",
+	"password": "",
+	"db": 0,
+	"dial_timeout": 5,
+	"read_timeout": 3,
+	"write_timeout": 3
+}
+

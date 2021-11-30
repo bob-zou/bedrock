@@ -1,0 +1,6 @@
+{
+	"dsn": "root:123456@tcp(127.0.0.1:3306)/bedrock_demo?charset=utf8mb4&parseTime=True&loc=Local",
+	"conn_max_lifetime": 3600,
+	"max_open_conn": 100,
+	"max_idle_conn": 10
+}
