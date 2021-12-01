@@ -9,7 +9,7 @@ import (
 var Upgrade = &cobra.Command{
 	Use:   "upgrade [version]",
 	Short: "bedrock self upgrade",
-	Long:  "",
+	Long:  "tool for self-upgrade the bedrock.\nExample: \n  bedrock upgrade\n  bedrock upgrade v1.0.4",
 	RunE:  upgrade,
 }
 

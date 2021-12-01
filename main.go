@@ -10,7 +10,8 @@ import (
 var _showVersion bool
 
 var RootCmd = &cobra.Command{
-	Use: "bedrock",
+	Use:  "bedrock",
+	Long: "bedrock: an simple tool for creating go microservices.",
 	RunE: func(c *cobra.Command, args []string) error {
 		if _showVersion {
 			fmt.Printf("bedrock version %s\n", version)

@@ -28,23 +28,25 @@ var (
 )
 
 var New = &cobra.Command{
-	Use:   "new [options] project",
+	Use:   "new [project name]",
 	Short: "create a bedrock project",
-	Long:  "",
+	Long:  "Create a project using the repository template.\nExample: \n  bedrock new\n  bedrock new bedrock-service\n  bedrock new bedrock-service -d /tmp",
 	RunE:  newProject,
 }
 
 func init() {
-	New.Flags().StringVarP(&_p.path, "dir", "d", "", "show version")
-	New.Flags().BoolVar(&_httpOnly, "http", false, "use http only")
-	New.Flags().BoolVar(&_grpcOnly, "grpc", false, "use grpc only")
+	New.Flags().StringVarP(&_p.path, "dir", "d", "", "specific dir of project")
+	New.Flags().BoolVar(&_httpOnly, "http", false, "use http only, not support yet")
+	New.Flags().BoolVar(&_grpcOnly, "grpc", false, "use grpc only, not support yet")
 }
 
 func newProject(c *cobra.Command, args []string) (err error) {
 	if len(args) != 1 {
-		return c.Usage()
+		_p.Name = "bedrock-demo"
+	} else {
+		_p.Name = args[0]
 	}
-	_p.Name = args[0]
+
 	if _p.path != "" {
 		if _p.path, err = filepath.Abs(_p.path); err != nil {
 			return
