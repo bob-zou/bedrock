@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -10,6 +11,10 @@ import (
 	"regexp"
 	"strings"
 	"text/template"
+
+	"github.com/fatih/color"
+
+	"github.com/toolkits/file"
 
 	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/cobra"
@@ -41,6 +46,11 @@ func init() {
 }
 
 func newProject(c *cobra.Command, args []string) (err error) {
+	// 先按照依赖的工具
+	if insErr := installTools(); insErr != nil {
+		return
+	}
+
 	if len(args) != 1 {
 		_p.Name = "bedrock-demo"
 	} else {
@@ -56,14 +66,35 @@ func newProject(c *cobra.Command, args []string) (err error) {
 		pwd, _ := os.Getwd()
 		_p.path = filepath.Join(pwd, _p.Name)
 	}
+
+	if !isEmpty(_p.path) {
+		color.Red("%s is not empty.\n", _p.path)
+		return
+	}
+
 	_p.ModPrefix = modPath(_p.path)
 
-	// creata a project
+	// create a project
 	if err = create(); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func isEmpty(path string) bool {
+	if !file.IsExist(path) {
+		return true
+	}
+
+	f, _ := os.Open(path)
+	defer func() { _ = f.Close() }()
+
+	_, err := f.Readdirnames(1)
+	if err == io.EOF {
+		return true
+	}
+	return false
 }
 
 func modPath(p string) string {

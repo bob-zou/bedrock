@@ -14,9 +14,11 @@ var Upgrade = &cobra.Command{
 }
 
 func upgrade(c *cobra.Command, args []string) (err error) {
-	var (
-		path = "github.com/bob-zou/bedrock@latest"
-	)
+	var path = "github.com/bob-zou/bedrock@latest"
+	if err = installTools(); err != nil {
+		return
+	}
+
 	if len(args) == 1 {
 		path = fmt.Sprintf("github.com/bob-zou/bedrock@%s", args[0])
 	}
