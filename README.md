@@ -13,6 +13,7 @@ Bedrock is a simple tool for creating go microservice.
 ### Installing
 ```shell
 go install github.com/bob-zou/bedrock@latest
+bedrock upgrade
 ```
 
 ### Create a service
