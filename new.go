@@ -28,7 +28,7 @@ var (
 )
 
 var New = &cobra.Command{
-	Use:   "new [Module ...]",
+	Use:   "new [options] project",
 	Short: "create a bedrock project",
 	Long:  "",
 	RunE:  newProject,
