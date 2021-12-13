@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bob-zou/bedrock/commands"
+
 	"github.com/spf13/cobra"
 )
 
@@ -22,8 +24,10 @@ var RootCmd = &cobra.Command{
 }
 
 func init() {
-	RootCmd.AddCommand(New)
-	RootCmd.AddCommand(Upgrade)
+	RootCmd.AddCommand(commands.New)
+	RootCmd.AddCommand(commands.Upgrade)
+	RootCmd.AddCommand(commands.Docs)
+	RootCmd.AddCommand(commands.Run)
 	RootCmd.Flags().BoolVarP(&_showVersion, "version", "v", false, "show version")
 }
 

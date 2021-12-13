@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"bytes"
@@ -9,18 +9,19 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/fatih/color"
-
-	"github.com/toolkits/file"
-
 	"github.com/gobuffalo/packr/v2"
 	"github.com/spf13/cobra"
+	"github.com/toolkits/file"
 )
 
 type project struct {
+	Year      string // current year
 	Name      string // project name
 	ModPrefix string // mod prefix
 	path      string // project dir
@@ -35,7 +36,7 @@ var (
 var New = &cobra.Command{
 	Use:   "new [project name]",
 	Short: "create a bedrock project",
-	Long:  "Create a project using the repository template.\nExample: \n  bedrock new\n  bedrock new bedrock-service\n  bedrock new bedrock-service -d /tmp",
+	Long:  "create a project using the repository template\nExample: \n  bedrock new\n  bedrock new bedrock-service\n  bedrock new bedrock-service -d /tmp",
 	RunE:  newProject,
 }
 
@@ -73,6 +74,7 @@ func newProject(c *cobra.Command, args []string) (err error) {
 	}
 
 	_p.ModPrefix = modPath(_p.path)
+	_p.Year = strconv.Itoa(time.Now().Year())
 
 	// create a project
 	if err = create(); err != nil {
@@ -129,7 +131,7 @@ func regexpReplace(reg, src, temp string) string {
 
 //go:generate packr2
 func create() (err error) {
-	box := packr.New("all", "./templates")
+	box := packr.New("all", "../templates/http")
 	if err = os.MkdirAll(_p.path, 0755); err != nil {
 		return
 	}
@@ -156,7 +158,13 @@ func create() (err error) {
 	if err = execCmd("go", "mod", "tidy"); err != nil {
 		return
 	}
+	if err = execCmdNoneOutput("swag", "init", "--dir", "cmd"); err != nil {
+		return
+	}
 	if err = execCmd("go", "generate", "-x", "./..."); err != nil {
+		return
+	}
+	if err = execCmd("swag", "init", "-d", "cmd", "--parseInternal", "--parseDependency", "--parseDepth", "2"); err != nil {
 		return
 	}
 	return
@@ -167,6 +175,14 @@ func execCmd(name string, args ...string) error {
 	cmd.Dir = _p.path
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
+func execCmdNoneOutput(name string, args ...string) error {
+	cmd := exec.Command(name, args...)
+	cmd.Dir = _p.path
+	cmd.Stdout = io.Discard
+	cmd.Stderr = io.Discard
 	return cmd.Run()
 }
 

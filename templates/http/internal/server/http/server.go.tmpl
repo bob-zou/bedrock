@@ -1,13 +1,17 @@
 package http
 
 import (
-	"net/http"
     "{{.ModPrefix}}{{.Name}}/internal/conf"
     "{{.ModPrefix}}{{.Name}}/internal/model"
     "{{.ModPrefix}}{{.Name}}/internal/service"
+    "net/http"
     "time"
 
     "github.com/gin-gonic/gin"
+    ginSwagger "github.com/swaggo/gin-swagger"
+    "github.com/swaggo/gin-swagger/swaggerFiles"
+
+    _ "bedrock-demo/docs"
 )
 
 var svc *service.Service
@@ -42,6 +46,7 @@ func New(s *service.Service) (engine *http.Server, err error) {
 }
 
 func initRouter(r *gin.Engine) {
+    r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/monitor/ping", ping)
     g := r.Group("/{{.Name}}")
     {
@@ -49,17 +54,26 @@ func initRouter(r *gin.Engine) {
     }
 }
 
+
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} http.CommonResponse{data=string}
+// @Router /monitor/ping [get]
 func ping(c *gin.Context) {
 	if err := svc.Ping(); err != nil {
 		c.AbortWithStatus(http.StatusServiceUnavailable)
 	}
-	c.String(http.StatusOK, "PONG")
+	c.JSON(http.StatusOK, CommonResponse{Data: "PONG"})
 }
 
-// example for http request handler.
+// @Summary demo interface
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} http.CommonResponse{data=model.Bedrock}
+// @Router /bedrock-demo/start [get]
 func howToStart(c *gin.Context) {
 	k := &model.Bedrock{
 		Hello: "Golang 大法好 !!!",
 	}
-	c.JSON(http.StatusOK, k)
+	c.JSON(http.StatusOK, CommonResponse{Data: k})
 }

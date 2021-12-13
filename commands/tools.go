@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"os"
@@ -25,6 +25,14 @@ var tools = []*Tool{
 		Name:         "wire",
 		Alias:        "wire",
 		Install:      "go install github.com/google/wire/cmd/wire@latest",
+		Summary:      "",
+		Requirements: []string{},
+		Platform:     []string{"darwin", "linux", "windows"},
+	},
+	{
+		Name:         "swag",
+		Alias:        "swag",
+		Install:      "go install github.com/swaggo/swag/cmd/swag@latest",
 		Summary:      "",
 		Requirements: []string{},
 		Platform:     []string{"darwin", "linux", "windows"},
@@ -60,7 +68,6 @@ func (t *Tool) check() (ok bool) {
 	}
 
 	return true
-
 }
 
 func (t *Tool) install() (err error) {

@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"github.com/spf13/cobra"
@@ -6,7 +6,7 @@ import (
 
 var Upgrade = &cobra.Command{
 	Use:   "upgrade [version]",
-	Short: "bedrock self upgrade",
+	Short: "self upgrade",
 	Long:  "tool for self-upgrade the bedrock.\nExample: \n  bedrock upgrade\n  bedrock upgrade v1.0.4",
 	RunE:  upgrade,
 }

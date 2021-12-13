@@ -1,0 +1,14 @@
+package http
+
+type ResponseCode int
+
+const (
+	ResponseCodeOK = iota
+	ResponseCodeErr
+)
+
+type CommonResponse struct {
+	Code    ResponseCode `json:"code"`
+	Msg     string       `json:"msg"`
+	Data    interface{}  `json:"data"`
+}

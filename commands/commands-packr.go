@@ -5,6 +5,6 @@
 
 // You can use the "packr clean" command to clean up this,
 // and any other packr generated files.
-package main
+package commands
 
 import _ "github.com/bob-zou/bedrock/packrd"
