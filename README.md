@@ -11,6 +11,7 @@ Bedrock is a simple tool for creating go microservice.
 - [wire](https://github.com/google/wire)
 
 ### Installing
+![installing.gif](https://cdn.jsdelivr.net/gh/bob-zou/bedrock/assets/images/installing.gif)
 ```shell
 go install github.com/bob-zou/bedrock@latest
 bedrock upgrade
@@ -20,6 +21,14 @@ bedrock upgrade
 ```shell
 bedrock new helloworld
 cd helloworld
-go run cmd/main.go
-```
 
+# update swagger docs
+bedrock docs
+
+# check if database is exist and password is right
+cat configs/db.json
+cat configs/redis.json
+
+# start service
+bedrock run
+```

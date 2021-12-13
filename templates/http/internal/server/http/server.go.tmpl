@@ -11,7 +11,7 @@ import (
     ginSwagger "github.com/swaggo/gin-swagger"
     "github.com/swaggo/gin-swagger/swaggerFiles"
 
-    _ "bedrock-demo/docs"
+    _ "{{.ModPrefix}}{{.Name}}/docs"
 )
 
 var svc *service.Service
