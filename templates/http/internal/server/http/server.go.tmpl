@@ -46,7 +46,7 @@ func New(s *service.Service) (engine *http.Server, err error) {
 }
 
 func initRouter(r *gin.Engine) {
-    r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+    r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.GET("/monitor/ping", ping)
     g := r.Group("/{{.Name}}")
     {
@@ -70,7 +70,7 @@ func ping(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} http.CommonResponse{data=model.Bedrock}
-// @Router /bedrock-demo/start [get]
+// @Router /{{.Name}}/start [get]
 func howToStart(c *gin.Context) {
 	k := &model.Bedrock{
 		Hello: "Golang 大法好 !!!",
