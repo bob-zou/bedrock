@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"database/sql"
+    "database/sql"
     "{{.ModPrefix}}{{.Name}}/internal/conf"
     "time"
 
@@ -22,6 +22,9 @@ func NewDB() (db *gorm.DB, cf func(), err error) {
 	}
 
 	sqlDB, err := sql.Open("mysql", cfg.Dsn)
+	if err != nil {
+        return
+    }
 	db, err = gorm.Open(mysql.New(mysql.Config{Conn: sqlDB}), &gorm.Config{})
 	if err != nil {
 		return
