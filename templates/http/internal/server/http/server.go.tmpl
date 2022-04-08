@@ -16,7 +16,7 @@ import (
 
 var svc *service.Service
 
-// New new a bm server.
+// New new a http server.
 func New(s *service.Service) (engine *http.Server, err error) {
 	var cfg struct {
 		Addr         string

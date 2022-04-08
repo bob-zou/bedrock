@@ -32,7 +32,7 @@ var tools = []*Tool{
 	{
 		Name:         "swag",
 		Alias:        "swag",
-		Install:      "go install github.com/swaggo/swag/cmd/swag@latest",
+		Install:      "go install github.com/swaggo/swag/cmd/swag@v1.7.6",
 		Summary:      "",
 		Requirements: []string{},
 		Platform:     []string{"darwin", "linux", "windows"},
