@@ -1,8 +1,9 @@
 ##### Translate to: [English](README.md)
 
-## Bedrock
 [![Go Report Card](https://goreportcard.com/badge/github.com/bob-zou/bedrock)](https://goreportcard.com/report/github.com/bob-zou/bedrock)
+[![GoDoc](https://godoc.org/github.com/bob-zou/bedrock?status.svg)](https://godoc.org/github.com/bob-zou/bedrock)
 
+## Bedrock
 Bedrock是一个简单的新建golang微服务项目的工具，可以快速的新建一个新的服务项目。
 
 ## Getting Started
