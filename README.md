@@ -3,7 +3,7 @@
 # About bedrock
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/bob-zou/bedrock)](https://goreportcard.com/report/github.com/bob-zou/bedrock)
-
+[![GoDoc](https://godoc.org/github.com/bob-zou/bedrock?status.svg)](https://godoc.org/github.com/bob-zou/bedrock)
 ## Bedrock
 Bedrock is a simple tool for creating go microservice.
 
